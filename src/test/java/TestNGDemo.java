@@ -72,7 +72,6 @@ public class TestNGDemo {
             Assert.assertTrue(webElement.isSelected());
         });
 
-
     }
 
     @AfterClass
