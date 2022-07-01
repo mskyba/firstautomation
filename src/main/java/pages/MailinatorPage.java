@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,12 +13,17 @@ import java.util.regex.Pattern;
 
 public class MailinatorPage extends BasePage{
 
-    private By searchInput = By.id("search");
-    private By sumbitButton = By.xpath("//button[text()='GO']");
-    private By tdContainsName = By.xpath("//td[contains(text(),'Mykola Skyba')]");
-    private By toLocator = By.xpath("//*[contains(text(),'mskyba')]");
-    private By fromLocator = By.xpath("//*[contains(text(),'mbskyba@ukr.net')]");
-    private By iframeLocator = By.id("texthtml_msg_body");
+    @FindBy(id = "search")
+    private WebElement searchInputElement;
+
+    @FindBy(xpath = "//button[text()='GO']")
+    private WebElement sumbitButtonElement;
+    @FindBy(xpath = "//td[contains(text(),'Mykola Skyba')]")
+    private WebElement tdContainsNameElement;
+
+    @FindBy(id = "texthtml_msg_body")
+    private WebElement iframeLocatorElement;
+    @FindBy(id = "/html/body")
     private By letterBodyLocator = By.xpath("/html/body");
 
 
@@ -32,35 +39,35 @@ public class MailinatorPage extends BasePage{
         driver.get(pageUrl);
     }
     public void openingMailinator (String account){
-        driver.findElement(searchInput).sendKeys(account);
-        driver.findElement(sumbitButton).click();
+        searchInputElement.sendKeys(account);
+        sumbitButtonElement.click();
     }
 
     public void openingLastLetter(){
         String lastLetter = "Mykola Skyba";
         new WebDriverWait(driver, Duration.ofMillis(1000)).
-                until(ExpectedConditions.textMatches(tdContainsName,
+                until(ExpectedConditions.textMatches(By.xpath("//td[contains(text(),'Mykola Skyba')]"),
                         Pattern.compile(lastLetter)));
-        driver.findElement(tdContainsName).click();
+        tdContainsNameElement.click();
 
     }
      public void checkingLetter (){
          String to= "mskyba";
          new WebDriverWait(driver, Duration.ofMillis(1500)).
-                 until(ExpectedConditions.textMatches(toLocator,
+                 until(ExpectedConditions.textMatches(By.xpath("//*[contains(text(),'mskyba')]"),
                          Pattern.compile(to)));
 
          String from= "mbskyba@ukr.net";
          new WebDriverWait(driver, Duration.ofMillis(1000)).
-                 until(ExpectedConditions.textMatches(fromLocator,
+                 until(ExpectedConditions.textMatches(By.xpath("//*[contains(text(),'mbskyba@ukr.net')]"),
                          Pattern.compile(from)));
 
 
          try{
-             driver.switchTo().frame(driver.findElement(iframeLocator));
+             driver.switchTo().frame(iframeLocatorElement);
              String letterBody = "fsdfsdj";
              new WebDriverWait(driver, Duration.ofMillis(1000)).
-                     until(ExpectedConditions.textMatches(letterBodyLocator,
+                     until(ExpectedConditions.textMatches(By.xpath("/html/body"),
                              Pattern.compile(letterBody)));         }
          finally {
              driver.switchTo().parentFrame();
