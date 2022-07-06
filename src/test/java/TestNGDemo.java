@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TestNGDemo {
 
-    private String baseURL = "http://www.leafground.com/pages/checkbox.html";
+    private String baseURL = "https://mail.ukr.net/";
 
     private By languagesYouKnowLocator =
             By.xpath("//label[text()='Select the languages that you know?']/following-sibling::input[1]");
@@ -37,7 +37,6 @@ public class TestNGDemo {
         languagesYouKnow = driver.findElement(languagesYouKnowLocator);
         checkedSelenium = driver.findElement(checkedSeleniumLocator);
         delesectChecked = driver.findElement(deselectCheckedLocator);
-//        selectAll = driver.findElement(selectAllLocator);
 
 
     }
