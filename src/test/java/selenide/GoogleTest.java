@@ -11,6 +11,7 @@ import pages.google.GoogleHomePage;
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverConditions.url;
 
 public class GoogleTest {
 
@@ -29,6 +30,22 @@ public class GoogleTest {
         googleHomePage.waitUntilSearchFieldDisplayed()
                 .setSearchText("Selenide")
                 .pressEnter();
+        $$x("//br/following-sibling::h3")
+                .shouldBe(sizeGreaterThanOrEqual(7))
+                .get(0)
+                .click();
+        webdriver().shouldHave(url("https://ru.selenide.org/"));
+        $x("//h3[contains(text(), 'Селенид поддерживает Украину \uD83C\uDDFA\uD83C\uDDE6\n')]");
+        $x("//a[contains(text(),'Блог')]")
+                .click();
+        webdriver().shouldHave(url("https://ru.selenide.org/blog.html"));
+
+
+
+
+
+
+
 
 
 
