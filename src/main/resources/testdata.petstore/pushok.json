@@ -2,16 +2,16 @@
   "id": 0,
   "category": {
     "id": 0,
-    "name": "string"
+    "name": "cats"
   },
-  "name": "pushok",
+  "name": "Barsik",
   "photoUrls": [
-    "string"
+    "none"
   ],
   "tags": [
     {
       "id": 0,
-      "name": "string"
+      "name": "grey"
     }
   ],
   "status": "available"
