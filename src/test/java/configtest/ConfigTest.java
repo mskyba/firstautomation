@@ -8,9 +8,6 @@ public class ConfigTest {
 
     @Test
     public void ownerConfigTest() {
-        FrameworkProperties frameworkProperties =
-                ConfigFactory.create(FrameworkProperties.class);
-        System.out.println(frameworkProperties.getFooBar());
-        System.out.println(frameworkProperties.getTimeout());
+
     }
 }
