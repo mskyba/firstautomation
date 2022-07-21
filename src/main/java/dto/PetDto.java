@@ -12,6 +12,7 @@ import lombok.extern.jackson.Jacksonized;
 public class PetDto {
     private String name;
     private String status;
+    private long petId;
 
 }
 

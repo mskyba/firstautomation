@@ -10,8 +10,12 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderDto {
-    private String name;
-    private String status;
+
+    private long petId;
+    private long orderId;
+
+    private int quantity;
+
 
 }
 
