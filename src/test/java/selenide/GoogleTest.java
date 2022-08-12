@@ -3,9 +3,6 @@ package selenide;
 import com.codeborne.selenide.*;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeClass;
@@ -17,7 +14,6 @@ import java.net.URI;
 import java.util.Map;
 
 import static com.codeborne.selenide.CollectionCondition.*;
-import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.url;
 
@@ -33,15 +29,13 @@ public class GoogleTest {
                 "enableVideo", true
         ));
         RemoteWebDriver driver = new RemoteWebDriver(
-                URI.create("http://192.168.68.112:4444/wd/hub").toURL(),
+                URI.create("http://selenoid:4444/wd/hub").toURL(),
                 capabilities
         );
-        WebDriverRunner.setWebDriver(driver);
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
 
 
-    @Test
+        @Test
     public void userShouldSearch() {
         open("https://google.com");
         GoogleHomePage googleHomePage = new GoogleHomePage();
