@@ -1,12 +1,20 @@
 package selenide;
 
 import com.codeborne.selenide.*;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.google.GoogleHomePage;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.util.Map;
 
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.*;
@@ -16,12 +24,22 @@ import static com.codeborne.selenide.WebDriverConditions.url;
 public class GoogleTest {
 
     @BeforeClass
-    public void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.savePageSource = false;
-        Configuration.timeout = 4000;//по умолчанию
-        Configuration.browserSize = "1920x1080";
+    public void setUpSelenoid() throws MalformedURLException {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("browserVersion", "104.0");
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
+        ));
+        RemoteWebDriver driver = new RemoteWebDriver(
+                URI.create("http://192.168.68.112:4444/wd/hub").toURL(),
+                capabilities
+        );
+        WebDriverRunner.setWebDriver(driver);
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
+
 
     @Test
     public void userShouldSearch() {
